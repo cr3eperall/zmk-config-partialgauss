@@ -121,48 +121,15 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10
             enable-gpios= <&nano_33_ble 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
             switch-pressed-is-higher;
             switch-height = <3300>;
-            1 {
-                io-channels = <&nano_33_ble_a 2>;
+            first {
+                io-channels = <&adc 3>;
                 press-point = <200>;
                 release-point = <100>;
                 calibration-min = <0>;
                 calibration-max = <4095>;
             };
-            2 {
-                io-channels = <&nano_33_ble_a 3>;
-                press-point = <200>;
-                release-point = <100>;
-                calibration-min = <0>;
-                calibration-max = <4095>;
-            };
-            3 {
-                io-channels = <&nano_33_ble_a 4>;
-                press-point = <200>;
-                release-point = <100>;
-                calibration-min = <0>;
-                calibration-max = <4095>;
-            };
-        };
-        bot {
-            enable-gpios= <&nano_33_ble 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
-            switch-pressed-is-higher;
-            switch-height = <3300>;
-            1 {
-                io-channels = <&nano_33_ble_a 5>;
-                press-point = <200>;
-                release-point = <100>;
-                calibration-min = <0>;
-                calibration-max = <4095>;
-            };
-            2 {
-                io-channels = <&nano_33_ble_a 6>;
-                press-point = <200>;
-                release-point = <100>;
-                calibration-min = <0>;
-                calibration-max = <4095>;
-            };
-            3 {
-                io-channels = <&nano_33_ble_a 7>;
+            second {
+                io-channels = <&adc 4>;
                 press-point = <200>;
                 release-point = <100>;
                 calibration-min = <0>;
