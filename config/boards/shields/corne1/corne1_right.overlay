@@ -1,0 +1,26 @@
+/*
+ * Copyright (c) 2020 Pete Johanson
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "corne1.dtsi"
+
+&default_transform {
+    col-offset = <6>;
+};
+
+&five_column_transform {
+    col-offset = <6>;
+};
+
+&kscan0 {
+    col-gpios
+        = <&nano_33_ble 6 GPIO_ACTIVE_HIGH>
+        , <&nano_33_ble 7 GPIO_ACTIVE_HIGH>
+        , <&nano_33_ble 8 GPIO_ACTIVE_HIGH>
+        , <&nano_33_ble 9 GPIO_ACTIVE_HIGH>
+        , <&nano_33_ble 10 GPIO_ACTIVE_HIGH>
+        , <&nano_33_ble 11 GPIO_ACTIVE_HIGH>
+        ;
+};

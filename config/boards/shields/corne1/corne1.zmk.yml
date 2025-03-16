@@ -1,0 +1,15 @@
+file_format: "1"
+id: corne1
+name: Corne1
+type: shield
+url: https://github.com/foostan/crkbd/
+requires: [nano_33_ble]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - underglow
+  - studio
+siblings:
+  - corne1_left
+  - corne1_right
