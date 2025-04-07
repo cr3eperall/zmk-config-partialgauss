@@ -11,7 +11,7 @@
 };
 
 
-&kscan0 {
+&kscan-gpio {
     col-gpios
         = <&nano_33_ble 3 GPIO_ACTIVE_HIGH>
         , <&nano_33_ble 4 GPIO_ACTIVE_HIGH>
@@ -20,3 +20,58 @@
         , <&nano_33_ble 9 GPIO_ACTIVE_HIGH>
         ;
 };
+
+&kscan-adc-top{
+    first {
+        io-channels = <&adc 2>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <2070>;
+        calibration-max = <3260>;
+    };
+    second {
+        io-channels = <&adc 1>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <2100>;
+        calibration-max = <3250>;
+    };
+    third {
+        io-channels = <&adc 0>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <1980>;
+        calibration-max = <3215>;
+    };
+};
+&kscan-adc-bot{
+    first {
+        io-channels = <&adc 5>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <2070>;
+        calibration-max = <3220>;
+    };
+    second {
+        io-channels = <&adc 4>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <2140>;
+        calibration-max = <3270>;
+    };
+    third {
+        io-channels = <&adc 3>;
+        press-point = <2300>;
+        release-point = <2500>;
+        calibration-min = <2020>;
+        calibration-max = <3250>;
+    };
+};
+
+&kscan-selector{
+    input-gpios
+            = 
+              <&gpio1 03 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&gpio1 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
+}
