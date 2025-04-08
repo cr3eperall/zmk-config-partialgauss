@@ -84,14 +84,14 @@
 / {
     chosen {
         // zephyr,display = &oled;
-        zmk,kscan = &kscan2;
+        zmk,kscan = &kscan;
         zmk,physical-layout = &physical_layout0;
     };
     
     physical_layout0: physical_layout_0 { // First physical layout, use different naming for other layouts
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
-        kscan = <&kscan2>; // Label of the kscan node, optional if all layouts use the same
+        kscan = <&kscan>; // Label of the kscan node, optional if all layouts use the same
         transform = <&default_transform>; // Label of the matrix transform for this layout
     };
 
@@ -112,7 +112,7 @@
         >;
     };
 
-    kscan-gpio: kscan-gpio {
+    kscan_gpio: kscan-gpio {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
 
@@ -124,23 +124,23 @@
             ;
 
     };
-    kscan: kscan {
+    kscan: kscan0 {
         compatible = "zmk,kscan-composite";
         wakeup-source;
         rows = <4>;
         columns = <12>;
         gpio-matrix {
-            kscan = <&kscan-gpio>;
+            kscan = <&kscan_gpio>;
             row-offset = <0>;
             col-offset = <0>;
         };
         adc-direct {
-            kscan = <&kscan-adc>;
+            kscan = <&kscan_adc>;
             row-offset = <3>;
             col-offset = <0>;
         };
         select-switches {
-            kscan = <&kscan-selector>;
+            kscan = <&kscan_selector>;
             row-offset = <3>;
             col-offset = <3>;
         };
@@ -154,7 +154,7 @@
         // 1.2 -> 1.96  DRV up   =  0.76
 // high power mode: multiple adc reads and average
 // low power mode: single adc read with lower resolution
-    kscan-adc: kscan-adc {
+    kscan_adc: kscan-adc {
         compatible = "zmk,kscan-adc-direct";
         resolution = <12>;
         pulse-read;
@@ -162,18 +162,18 @@
         wait-period-idle= <5>;
         wait-period-press= <1>;
         
-        kscan-adc-top: top {
+        kscan_adc_top: top {
             enable-gpios= <&nano_33_ble_gpio_a 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
             // switch-pressed-is-higher;
             switch-height = <3300>;
         };
-        kscan-adc-bot: bot {
+        kscan_adc_bot: bot {
             enable-gpios= <&nano_33_ble_gpio_a 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
             // switch-pressed-is-higher;
             switch-height = <3300>;
         };
     };
-    kscan-selector: kscan-selector {
+    kscan_selector: kscan-selector {
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
         wakeup-source;
     };
