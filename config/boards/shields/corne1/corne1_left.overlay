@@ -19,22 +19,22 @@
 &kscan_adc_top{
     first {
         io-channels = <&adc 0>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <2070>;
         calibration-max = <3260>;
     };
     second {
         io-channels = <&adc 1>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <2100>;
         calibration-max = <3250>;
     };
     third {
         io-channels = <&adc 2>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <1980>;
         calibration-max = <3215>;
     };
@@ -42,22 +42,22 @@
 &kscan_adc_bot{
     first {
         io-channels = <&adc 3>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <2070>;
         calibration-max = <3220>;
     };
     second {
         io-channels = <&adc 4>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <2140>;
         calibration-max = <3270>;
     };
     third {
         io-channels = <&adc 5>;
-        press-point = <2300>;
-        release-point = <2500>;
+        // deadzone-top = <>;
+        // deadzone-bottom = <>;
         calibration-min = <2020>;
         calibration-max = <3250>;
     };

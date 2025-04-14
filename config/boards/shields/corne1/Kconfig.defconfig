@@ -1,4 +1,4 @@
-if SHIELD_CORNE1_LEFT
+if SHIELD_CORNE1_RIGHT
 
 config ZMK_KEYBOARD_NAME
     default "Corne1"

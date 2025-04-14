@@ -146,6 +146,9 @@
         };
     };
     
+    kscan_forwarder: kscan-forwarder {
+        compatible = "zmk,kscan-forwarder";
+    };
 
         // 1.0 o 2.1
         // 1.40 -> 0.92 GKS norm =  0.48
@@ -155,13 +158,14 @@
 // high power mode: multiple adc reads and average
 // low power mode: single adc read with lower resolution
     kscan_adc: kscan-adc {
-        compatible = "zmk,kscan-adc-direct";
+        compatible = "zmk,kscan-he-direct-pulsed";
         resolution = <12>;
         pulse-read;
+        // calibrate;
         read-turn-on-time= <50>;
         wait-period-idle= <5>;
         wait-period-press= <1>;
-        
+        kscan-forwarder = <&kscan_forwarder>;
         kscan_adc_top: top {
             enable-gpios= <&nano_33_ble_gpio_a 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
             // switch-pressed-is-higher;
@@ -177,7 +181,20 @@
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
         wakeup-source;
     };
-    // TODO: per-key RGB node(s)?
+
+    raw_sp: raw-he-signal-processor{
+        compatible = "he,raw-signal-processor";
+        #input-processor-cells = <0>;
+        matrix-size = <2 3>;
+        filter-coefficients = <0x3f9490b 0xd92ae7c 0x3fa490b 0xd92ae7c 0x3f9490b 0xd92ae7c 0x3ff0000 0x0000000 0xbff8f9e 0x1700768 0x3fe485f 0xa92649f>;
+    };
+    
+    input_listener {
+        compatible = "zmk,input-listener";
+        device = <&kscan_adc>;
+        input-processors = <&raw_sp>;
+    };
+
 };
 
 // &nano_33_ble_i2c {
