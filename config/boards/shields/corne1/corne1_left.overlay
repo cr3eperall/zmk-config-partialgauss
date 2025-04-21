@@ -70,3 +70,15 @@
             , <&gpio1  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
 };
+
+&central_listener{
+    status = "okay";
+};
+
+&peripheral_listener{
+    status = "okay";
+};
+
+&raw_sp {
+    sample-div = <1>;
+};

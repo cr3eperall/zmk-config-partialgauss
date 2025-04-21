@@ -9,7 +9,7 @@
 #include <dt-bindings/zmk/bt.h>
 
 / {
-        keymap {
+        km: keymap {
                 compatible = "zmk,keymap";
 
                 default_layer {
@@ -22,7 +22,7 @@
     &kp TAB   &kp Q &kp W &kp E &kp R &kp T     &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
     &kp LCTRL &kp A &kp S &kp D &kp F &kp G     &kp H &kp J  &kp K     &kp L   &kp SEMI &kp RET
               &kp Z &kp X &kp C &kp V &kp B     &kp N &kp M  &kp COMMA &kp DOT &kp FSLH 
-                    &kp LGUI &kp SPACE &mo 2   &kp RALT &mo 1 &kp RSHFT
+    &trans   &trans &kp LGUI &kp SPACE &mo 2   &kp RALT &mo 1 &kp RSHFT         &trans   &trans
                         >;
                 };
                 L1-numbers {
@@ -33,12 +33,11 @@
 //                       | LGUI  |   SPC   |   L2    |         | ALT | L1  |SHIFT|
                         bindings = <
     &kp LALT  &kp ESC  &kp INS &kp HOME &kp PG_UP &kp SYSREQ   &trans   &kp SQT &kp BSLH &kp MINUS &kp EQUAL &kp DEL
-    &kp LCTRL &kp 1    &kp 2   &kp 3    &kp 4     &kp 5        &kp 6    &kp 7   &kp 8    &kp 9     &kp 0     &kp K_APP
+    &kp LCTRL &kp N1   &kp N2  &kp N3   &kp N4    &kp N5       &kp N6   &kp N7  &kp N8   &kp N9    &kp N0     &kp K_APP
               &kp CAPS &kp DEL &kp END  &kp PG_DN &trans       &trans   &trans  &trans   &kp LBRC  &kp RBRC 
-                               &kp LGUI &kp LSHFT &mo 2        &kp RALT &trans  &kp RSHFT
-                             >;
+    &trans   &trans            &kp LGUI &kp LSHFT &mo 2        &kp RALT &trans  &kp RSHFT          &trans   &trans
+                             >; 
                 };
-
                 L2-fn-accents {
 // -----------------------------------------------------------------------------------------
 // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
@@ -48,8 +47,8 @@
                         bindings = <
    &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
    &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT
+             &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE 
+   &trans    &trans          &kp LGUI &trans   &kp SPACE   &kp RET   &trans    &kp RALT           &trans   &trans
                         >;
                 };
         };

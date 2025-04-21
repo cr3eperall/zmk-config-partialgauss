@@ -75,3 +75,18 @@
             , <&gpio1 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
 };
+
+&raw_sp{
+    sample-div = <12>;
+};
+
+&he_input_split{
+    device = <&kscan_adc>;
+    input-processors = <
+        &raw_sp
+        &he_mat_offset 5 0
+        &heTrans
+    >;
+    // input-processors = <&heTrans>;
+    // status="disabled";
+};
