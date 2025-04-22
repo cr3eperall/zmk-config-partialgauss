@@ -21,22 +21,22 @@
         io-channels = <&adc 0>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <2070>;
-        calibration-max = <3260>;
+        calibration-min = <2095>;
+        calibration-max = <3286>;
     };
     second {
         io-channels = <&adc 1>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <2100>;
-        calibration-max = <3250>;
+        calibration-min = <2067>;
+        calibration-max = <3245>;
     };
     third {
         io-channels = <&adc 2>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <1980>;
-        calibration-max = <3215>;
+        calibration-min = <2024>;
+        calibration-max = <3226>;
     };
 };
 &kscan_adc_bot{
@@ -44,22 +44,22 @@
         io-channels = <&adc 3>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <2070>;
-        calibration-max = <3220>;
+        calibration-min = <2072>;
+        calibration-max = <3232>;
     };
     second {
         io-channels = <&adc 4>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <2140>;
-        calibration-max = <3270>;
+        calibration-min = <2193>;
+        calibration-max = <3278>;
     };
     third {
         io-channels = <&adc 5>;
         // deadzone-top = <>;
         // deadzone-bottom = <>;
-        calibration-min = <2020>;
-        calibration-max = <3250>;
+        calibration-min = <2037>;
+        calibration-max = <3273>;
     };
 };
 

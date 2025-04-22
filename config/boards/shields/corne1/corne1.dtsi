@@ -204,9 +204,18 @@
     he_adj: he-adjustable-actuation{
         compatible = "he,input-processor-adjustable-actuation";
         #input-processor-cells = <1>;
-        sensitivity = <30>;
+        sensitivity = <250>;
         kscan-forwarder = <&kscan_forwarder>;
         kscan-passthrough-position = <2700>;
+        keymap-size = <12>;
+        kscan-passthrough;
+    };
+    he_rt: he-rapid-trigger{
+        compatible = "he,input-processor-rapid-trigger";
+        #input-processor-cells = <1>;
+        sensitivity =  <250>;
+        kscan-forwarder = <&kscan_forwarder>;
+        actuation-point = <2800>;
         keymap-size = <12>;
         kscan-passthrough;
     };
@@ -229,8 +238,8 @@
         transform = <&he_transform>;
         layer0 {
             input-processors = <
-                &he_adj 0 &he_adj 1 &he_adj 2   &he_adj 3 &he_adj 4  &he_adj 5
-                &he_adj 6 &he_adj 7 &he_adj 8   &he_adj 9 &he_adj 10 &he_adj 11
+                &he_adj 0 &he_rt 1  &he_adj 2   &he_adj 3 &he_adj 4  &he_adj 5
+                &he_adj 6 &he_adj 7 &he_adj 8   &he_adj 9 &he_rt 10 &he_adj 11
             >;
         };
     };
