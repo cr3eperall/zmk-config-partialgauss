@@ -81,15 +81,32 @@
     sample-div = <12>;
 };
 
-&he_input_split{
-    device = <&kscan_adc>;
-    input-processors = <
-        &raw_sp
-        &he_mat_offset 5 0
-        &he_trans
-    >;
+&input_split{
+    status="disabled";
+    // device = <&kscan_adc>;
+    // input-processors = <
+    //     &raw_sp
+    //     &he_mat_offset 5 0
+    //     &he_trans
+    // >;
     // input-processors = <&heTrans>;
     // status="disabled";
+};
+
+&split_inputs {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    
+    he_input_split: he_input_split@0 {
+        compatible = "he,input-split";
+        reg = <0>;
+        device = <&kscan_adc>;
+        input-processors = <
+            &raw_sp
+            &he_mat_offset 5 0
+            &he_trans
+        >;
+    };
 };
 
 &gp_fw{

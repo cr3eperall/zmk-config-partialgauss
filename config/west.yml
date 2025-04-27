@@ -8,8 +8,8 @@ manifest:
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: 4235c8b491b32565850efd296a2f4199dbbc4d90
+      remote: cr3eperall
+      revision: fix-child-node-dependencies
       import: app/west.yml
     - name: zmk-feature-hall-effect
       remote: cr3eperall

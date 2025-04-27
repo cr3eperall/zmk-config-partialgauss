@@ -231,10 +231,10 @@
         // };
     };
     
-    split_inputs {
+    split_inputs: split_inputs {
         #address-cells = <1>;
         #size-cells = <0>;
-        he_input_split: he_input_split@0 {
+        input_split: input_split@0 {
             compatible = "zmk,input-split";
             reg = <0>;
         };
@@ -281,7 +281,7 @@
     peripheral_listener: peripheral_listener {
         compatible = "he,input-listener";
         status = "disabled";
-        device = <&he_input_split>;
+        device = <&input_split>;
         layer0 {
             layers = <0>;
             input-processors = <&he_keymap 0>;
