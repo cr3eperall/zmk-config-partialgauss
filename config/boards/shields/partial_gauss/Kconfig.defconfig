@@ -1,16 +1,25 @@
-if SHIELD_CORNE1_LEFT
+if SHIELD_PARTIAL_GAUSS_LEFT
 
 config ZMK_KEYBOARD_NAME
-    default "Corne1"
+    default "Partial-Gauss"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif
 
-if SHIELD_CORNE1_LEFT || SHIELD_CORNE1_RIGHT
+if SHIELD_PARTIAL_GAUSS_LEFT || SHIELD_PARTIAL_GAUSS_RIGHT
 
 config ZMK_SPLIT
+    default y
+
+config INPUT
+    default y
+
+config ZMK_INPUT_SPLIT
+    default y
+
+config ZMK_POINTING
     default y
 
 if ZMK_DISPLAY

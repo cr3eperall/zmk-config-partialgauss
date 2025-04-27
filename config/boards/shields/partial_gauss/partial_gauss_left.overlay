@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2020 Pete Johanson
+ * Copyright (c) 2025 cr3eperall
  *
  * SPDX-License-Identifier: MIT
  */
 
-#include "corne1.dtsi"
-
+#include "partial_gauss.dtsi"
+    
 &kscan_gpio {
     col-gpios
         = <&nano_33_ble 9 GPIO_ACTIVE_HIGH>
@@ -78,7 +78,18 @@
 &peripheral_listener{
     status = "okay";
 };
+&mouse_fw_listener{
+    status = "okay";
+};
 
 &raw_sp {
     sample-div = <1>;
+};
+
+&he_transform {
+    status="okay";
+};
+
+&he_keymap {
+    status = "okay";
 };

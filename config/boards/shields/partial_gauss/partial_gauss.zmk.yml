@@ -1,0 +1,16 @@
+file_format: "1"
+id: partial_gauss
+name: Partial Gauss
+type: shield
+#TODO add url
+# url: https://github.com/cr3eperall/
+requires: [zmk-component-nano33ble, zmk-feature-hall-effect]
+exposes: [i2c_oled]
+features:
+  - keys
+  # - display
+  # - underglow
+  - studio
+siblings:
+  - partial_gauss_left
+  - partial_gauss_right

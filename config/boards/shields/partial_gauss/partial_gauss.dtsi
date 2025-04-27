@@ -1,21 +1,13 @@
 /*
- * Copyright (c) 2020 Pete Johanson
+ * Copyright (c) 2025 cr3eperall
  *
  * SPDX-License-Identifier: MIT
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
-// #include <dt-bindings/nano33ble.h>
-// #include <layouts/foostan/corne/5column.dtsi>
-// #include <layouts/foostan/corne/6column.dtsi>
-
-// &foostan_corne_6col_layout {
-//     transform = <&default_transform>;
-// };
-
-// &foostan_corne_5col_layout {
-//     transform = <&five_column_transform>;
-// };
+#include <dt-bindings/he/mouse_forwarder.h>
+#include <dt-bindings/he/gamepad_forwarder.h>
+#include <input/he_processors.dtsi>
 
 &adc {
     status = "okay";
@@ -81,12 +73,45 @@
     };
 };
 
+&raw_sp {
+    matrix-size = <2 3>;
+    working-area = <250 3050>;
+    // I lost so many hours debugging this with the wrong values, please check them carefully in the future
+    filter-coefficients = <0x3ca485df 0x3d2485df 0x3ca485df 0x3f800000 0xbfc7cf71 0x3f242f9d>;
+};
+
+&he_trans {
+    log;
+};
+&he_pass {
+    kscan-passthrough-position = <2700>;
+    keymap-size = <12>;
+};
+&rt_pass{
+    keymap-size = <12>;
+};
+&mouse_fw{
+    time-to-max-speed-ms = <300>;
+    working-area = <300 2800>;
+    scale-x-float = <0x40400000>;/* 3.0 */
+    scale-y-float = <0x40400000>;/* 3.0 */
+    scale-h-wheel-float = <0x40400000>;/* 3.0 */
+    scale-v-wheel-float = <0x40400000>;/* 3.0 */
+};
+
 / {
     chosen {
         // zephyr,display = &oled;
         zmk,kscan = &kscan;
         zmk,physical-layout = &physical_layout0;
+        // zmk,battery = &battery_ch;
     };
+
+    //FIXME if a battery driver is enabled on an adc channel not used by the kscan, everything breaks at the second battery fetch
+    // battery_ch: battery_channel {
+        // compatible = "zmk,battery-nrf-vddh-channel";
+        // vddh-channel = <7>;
+    // };
     
     physical_layout0: physical_layout_0 { // First physical layout, use different naming for other layouts
         compatible = "zmk,physical-layout";
@@ -145,20 +170,9 @@
             col-offset = <3>;
         };
     };
-    
-    kscan_forwarder: kscan-forwarder {
-        compatible = "zmk,kscan-forwarder";
-    };
 
-        // 1.0 o 2.1
-        // 1.40 -> 0.92 GKS norm =  0.48
-        // 0.92 -> 0.60 DRV norm =  0.32 ~= 0.402
-        // 1.8 -> 2.6   GKS up   =  0.8
-        // 1.2 -> 1.96  DRV up   =  0.76
-// high power mode: multiple adc reads and average
-// low power mode: single adc read with lower resolution
     kscan_adc: kscan-adc {
-        compatible = "zmk,kscan-he-direct-pulsed";
+        compatible = "he,kscan-he-direct-pulsed";
         resolution = <12>;
         pulse-read;
         // calibrate;
@@ -181,47 +195,19 @@
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
         wakeup-source;
     };
-
-    raw_sp: raw-he-signal-processor{
-        compatible = "he,raw-signal-processor";
-        #input-processor-cells = <0>;
-        matrix-size = <2 3>;
-        working-area = <150 3150>;
-        // I lost so many hours debugging this with the wrong values, please check them carefully in the future
-        filter-coefficients = <0x3ca485df 0x3d2485df 0x3ca485df 0x3f800000 0xbfc7cf71 0x3f242f9d>;
-    };
-
-    heTrans: blank-he-transparent {
-        compatible = "he,input-processor-blank-he";
-        #input-processor-cells = <0>;
-        log;
-    };
-    henone: blank-he-block {
-        compatible = "he,input-processor-blank-he";
-        #input-processor-cells = <0>;
-        block;
-    };
-    he_adj: he-adjustable-actuation{
-        compatible = "he,input-processor-adjustable-actuation";
+    socd_l: he-socd1{
+        compatible = "he,input-processor-socd";
         #input-processor-cells = <1>;
         sensitivity = <250>;
         kscan-forwarder = <&kscan_forwarder>;
-        kscan-passthrough-position = <2700>;
-        keymap-size = <12>;
         kscan-passthrough;
-    };
-    he_rt: he-rapid-trigger{
-        compatible = "he,input-processor-rapid-trigger";
-        #input-processor-cells = <1>;
-        sensitivity =  <250>;
-        kscan-forwarder = <&kscan_forwarder>;
         actuation-point = <2800>;
-        keymap-size = <12>;
-        kscan-passthrough;
+        type= "priority_last";
     };
 
     he_transform: he_transform {// mapping of he sensors before going to kscan-composite but with he,input-processor-matrix-offset applied
         compatible = "zmk,matrix-transform";
+        status= "disabled";
         columns = <8>;
         rows = <2>;
         // |  HE1  |  HE2  |  HE3  |  |  HE3  |  HE2  |  HE1  |
@@ -234,19 +220,15 @@
 
     he_keymap: he-keymap {
         compatible = "he,input-processor-keymap";
+        status= "disabled";
         #input-processor-cells = <1>;
         transform = <&he_transform>;
-        layer0 {
-            input-processors = <
-                &he_adj 0 &he_rt 1  &he_adj 2   &he_adj 3 &he_adj 4  &he_adj 5
-                &he_adj 6 &he_adj 7 &he_adj 8   &he_adj 9 &he_rt 10 &he_adj 11
-            >;
-        };
-    };
-
-    he_mat_offset: he_mat_offset{
-        compatible = "he,input-processor-matrix-offset";
-        #input-processor-cells = <2>;
+        // layer0 {
+        //     input-processors = <
+        //         &gp_fw GP_L_TR     &gp_fw GP_L_UP     &rt_pass 1        &socd_l 0           &gp_fw GP_R_UP     &gp_fw GP_R_TR
+        //         &gp_fw GP_L_LEFT   &gp_fw GP_L_DOWN   &gp_fw GP_L_RIGHT &gp_fw GP_R_LEFT    &gp_fw GP_R_DOWN   &gp_fw GP_R_RIGHT
+        //     >;
+        // };
     };
     
     split_inputs {
@@ -266,7 +248,34 @@
         layer0 {
             layers = <0>;
             input-processors = <&he_keymap 0>;
-            // input-processors = <&henone>;
+        };
+        layer1 {
+            layers = <1>;
+            input-processors = <&he_keymap 1>;
+        };
+        layer2 {
+            layers = <2>;
+            input-processors = <&he_keymap 2>;
+        };
+        layer3 {
+            layers = <3>;
+            input-processors = <&he_keymap 3>;
+        };
+        layer4 {
+            layers = <4>;
+            input-processors = <&he_keymap 4>;
+        };
+        layer5 {
+            layers = <5>;
+            input-processors = <&he_keymap 5>;
+        };
+        layer6 {
+            layers = <6>;
+            input-processors = <&he_keymap 6>;
+        };
+        layer7 {
+            layers = <7>;
+            input-processors = <&he_keymap 7>;
         };
     };
     peripheral_listener: peripheral_listener {
@@ -276,10 +285,42 @@
         layer0 {
             layers = <0>;
             input-processors = <&he_keymap 0>;
-            // input-processors = <&henone>;
+        };
+        layer1 {
+            layers = <1>;
+            input-processors = <&he_keymap 1>;
+        };
+        layer2 {
+            layers = <2>;
+            input-processors = <&he_keymap 2>;
+        };
+        layer3 {
+            layers = <3>;
+            input-processors = <&he_keymap 3>;
+        };
+        layer4 {
+            layers = <4>;
+            input-processors = <&he_keymap 4>;
+        };
+        layer5 {
+            layers = <5>;
+            input-processors = <&he_keymap 5>;
+        };
+        layer6 {
+            layers = <6>;
+            input-processors = <&he_keymap 6>;
+        };
+        layer7 {
+            layers = <7>;
+            input-processors = <&he_keymap 7>;
         };
     };
-
+    mouse_fw_listener: mouse_fw_listener {
+        compatible = "he,input-listener";
+        status = "disabled";
+        device = <&mouse_fw>;
+    };
+        
 };
 
 // &nano_33_ble_i2c {

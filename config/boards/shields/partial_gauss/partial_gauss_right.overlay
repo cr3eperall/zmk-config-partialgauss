@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2020 Pete Johanson
+ * Copyright (c) 2025 cr3eperall
  *
  * SPDX-License-Identifier: MIT
  */
 
-#include "corne1.dtsi"
+#include "partial_gauss.dtsi"
+#include <behaviors/gamepad_button.dtsi>
 
 &default_transform {
     col-offset = <5>;
@@ -85,8 +86,27 @@
     input-processors = <
         &raw_sp
         &he_mat_offset 5 0
-        &heTrans
+        &he_trans
     >;
     // input-processors = <&heTrans>;
     // status="disabled";
+};
+
+&gp_fw{
+    status="disabled";
+};
+&mouse_fw{
+    status="disabled";
+};
+&he_pass{
+    status="disabled";
+};
+&rt_pass{
+    status="disabled";
+};
+&socd_l{
+    status="disabled";
+};
+&gp_btn{
+    status="disabled";
 };

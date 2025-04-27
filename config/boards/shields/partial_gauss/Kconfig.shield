@@ -1,0 +1,8 @@
+# Copyright (c) 2025 cr3eperal
+# SPDX-License-Identifier: MIT
+
+config SHIELD_PARTIAL_GAUSS_LEFT
+    def_bool $(shields_list_contains,partial_gauss_left)
+
+config SHIELD_PARTIAL_GAUSS_RIGHT
+    def_bool $(shields_list_contains,partial_gauss_right)

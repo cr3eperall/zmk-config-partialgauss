@@ -20,6 +20,12 @@
 ---
 include:
   - board: nano_33_ble
-    shield: corne1_left
+    shield: partial_gauss_left
+    artifact-name: partial_gauss_left
+    # snippet: zmk-usb-logging
+    # snippet: studio-rpc-usb-uart
+    # cmake-args: -DCONFIG_ZMK_STUDIO=y
+    # artifact-name: partial_gauss_left_with_studio
   - board: nano_33_ble
-    shield: corne1_right
+    shield: partial_gauss_right
+    artifact-name: partial_gauss_right

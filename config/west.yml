@@ -2,12 +2,20 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: cr3eperall
+      url-base: https://github.com/cr3eperall
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: 4235c8b491b32565850efd296a2f4199dbbc4d90
       import: app/west.yml
+    - name: zmk-feature-hall-effect
+      remote: cr3eperall
+      revision: main
+    - name: zmk-nano33ble-board
+      remote: cr3eperall
+      revision: main
   self:
     path: config
