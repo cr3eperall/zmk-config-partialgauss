@@ -81,16 +81,17 @@
     sample-div = <12>;
 };
 
+// zmk,input-split is enabled but does nothing on the peripheral side
+// it is only needed to make DT_FOREACH_STATUS_OKAY(zmk_input_split, INPUT_SPLIT_CHARS) 
+// generate the GATT characteristic in `zmk/app/src/split/bluetooth/service.c:196`
+//  he,input split is the one that actually sends the data
 &input_split{
-    status="disabled";
-    // device = <&kscan_adc>;
-    // input-processors = <
-    //     &raw_sp
-    //     &he_mat_offset 5 0
-    //     &he_trans
-    // >;
-    // input-processors = <&heTrans>;
-    // status="disabled";
+    device = <&he_none>; //mock device that doesn't generate inpus
+//     // input-processors = <
+//     //     &raw_sp
+//     //     &he_mat_offset 5 0
+//     //     &he_trans
+//     // >;
 };
 
 &split_inputs {
