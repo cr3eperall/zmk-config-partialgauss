@@ -81,7 +81,7 @@
 };
 
 &he_trans {
-    log;
+    // log;
 };
 &he_pass {
     kscan-passthrough-position = <2700>;
@@ -204,6 +204,11 @@
         actuation-point = <2800>;
         type= "priority_deeper";
     };
+    ps: he_set_p{ //name needs to be <= 8 chars
+        compatible = "he,behavior-set-pulse";
+        #binding-cells = <1>;
+        kscan-forwarder = <&kscan_forwarder>;
+    };
 
     he_transform: he_transform {// mapping of he sensors before going to kscan-composite but with he,input-processor-matrix-offset applied
         compatible = "zmk,matrix-transform";
@@ -245,74 +250,74 @@
         status = "disabled";
         device = <&kscan_adc>;
         input-processors = <&raw_sp>;
-        layer0 {
-            layers = <0>;
-            input-processors = <&he_keymap 0>;
-        };
-        layer1 {
-            layers = <1>;
-            input-processors = <&he_keymap 1>;
-        };
-        layer2 {
-            layers = <2>;
-            input-processors = <&he_keymap 2>;
-        };
-        layer3 {
-            layers = <3>;
-            input-processors = <&he_keymap 3>;
-        };
-        layer4 {
-            layers = <4>;
-            input-processors = <&he_keymap 4>;
-        };
-        layer5 {
-            layers = <5>;
-            input-processors = <&he_keymap 5>;
+        layer7 {
+            layers = <7>;
+            input-processors = <&he_keymap 7>;
         };
         layer6 {
             layers = <6>;
             input-processors = <&he_keymap 6>;
         };
-        layer7 {
-            layers = <7>;
-            input-processors = <&he_keymap 7>;
+        layer5 {
+            layers = <5>;
+            input-processors = <&he_keymap 5>;
+        };
+        layer4 {
+            layers = <4>;
+            input-processors = <&he_keymap 4>;
+        };
+        layer3 {
+            layers = <3>;
+            input-processors = <&he_keymap 3>;
+        };
+        layer2 {
+            layers = <2>;
+            input-processors = <&he_keymap 2>;
+        };
+        layer1 {
+            layers = <1>;
+            input-processors = <&he_keymap 1>;
+        };
+        layer0 {
+            layers = <0>;
+            input-processors = <&he_keymap 0>;
         };
     };
     peripheral_listener: peripheral_listener {
         compatible = "he,input-listener";
         status = "disabled";
         device = <&input_split>;
-        layer0 {
-            layers = <0>;
-            input-processors = <&he_keymap 0>;
-        };
-        layer1 {
-            layers = <1>;
-            input-processors = <&he_keymap 1>;
-        };
-        layer2 {
-            layers = <2>;
-            input-processors = <&he_keymap 2>;
-        };
-        layer3 {
-            layers = <3>;
-            input-processors = <&he_keymap 3>;
-        };
-        layer4 {
-            layers = <4>;
-            input-processors = <&he_keymap 4>;
-        };
-        layer5 {
-            layers = <5>;
-            input-processors = <&he_keymap 5>;
+        layer7 {
+            layers = <7>;
+            input-processors = <&he_keymap 7>;
         };
         layer6 {
             layers = <6>;
             input-processors = <&he_keymap 6>;
         };
-        layer7 {
-            layers = <7>;
-            input-processors = <&he_keymap 7>;
+        layer5 {
+            layers = <5>;
+            input-processors = <&he_keymap 5>;
+        };
+        layer4 {
+            layers = <4>;
+            input-processors = <&he_keymap 4>;
+        };
+        layer3 {
+            layers = <3>;
+            input-processors = <&he_keymap 3>;
+        };
+        layer2 {
+            layers = <2>;
+            input-processors = <&he_keymap 2>;
+        };
+        layer1 {
+            layers = <1>;
+            input-processors = <&he_keymap 1>;
+        };
+        layer0 {
+            layers = <0>;
+            input-processors = <&he_keymap 0>;
         };
     };
     mouse_fw_listener: mouse_fw_listener {
