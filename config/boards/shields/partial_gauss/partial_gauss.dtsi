@@ -195,14 +195,14 @@
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
         wakeup-source;
     };
-    socd_l: he-socd1{
+    socd_d: he-socd1{
         compatible = "he,input-processor-socd";
         #input-processor-cells = <1>;
         sensitivity = <250>;
         kscan-forwarder = <&kscan_forwarder>;
         kscan-passthrough;
         actuation-point = <2800>;
-        type= "priority_last";
+        type= "priority_deeper";
     };
 
     he_transform: he_transform {// mapping of he sensors before going to kscan-composite but with he,input-processor-matrix-offset applied
