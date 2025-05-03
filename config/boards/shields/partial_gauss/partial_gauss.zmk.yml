@@ -10,7 +10,7 @@ features:
   - keys
   # - display
   # - underglow
-  - studio
+  # - studio
 siblings:
   - partial_gauss_left
   - partial_gauss_right

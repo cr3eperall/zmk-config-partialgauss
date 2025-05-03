@@ -8,6 +8,7 @@
 #include <dt-bindings/he/mouse_forwarder.h>
 #include <dt-bindings/he/gamepad_forwarder.h>
 #include <input/he_processors.dtsi>
+#include <physical_layouts.dtsi>
 
 &adc {
     status = "okay";
@@ -71,6 +72,14 @@
         zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 10)>;
         zephyr,resolution = <12>;
     };
+    // channel@6 {
+    //     reg = <6>;
+    //     zephyr,input-positive = <NRF_SAADC_VDDHDIV5>;
+    //     zephyr,gain = "ADC_GAIN_1_2";
+    //     zephyr,reference = "ADC_REF_INTERNAL";
+    //     zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+    //     zephyr,resolution = <12>;
+    // };
 };
 
 &raw_sp {
@@ -98,6 +107,9 @@
     scale-h-wheel-float = <0x40400000>;/* 3.0 */
     scale-v-wheel-float = <0x40400000>;/* 3.0 */
 };
+// &uart0{
+//     status="okay";
+// };
 
 / {
     chosen {
@@ -105,12 +117,17 @@
         zmk,kscan = &kscan;
         zmk,physical-layout = &physical_layout0;
         // zmk,battery = &battery_ch;
+        // zephyr,console = &uart0;
+        // zephyr,console = &snippet_zmk_usb_logging_uart;
+        // zephyr,shell-uart = &snippet_zmk_usb_logging_uart;
     };
 
-    //FIXME if a battery driver is enabled on an adc channel not used by the kscan, everything breaks at the second battery fetch
+    // On the nano 33 ble, the battery is connected to an on board regulator that goes to vdd, so the only way to measure the battery is with a voltage divider
+    // but i don't have any free adc pins
+    // 
     // battery_ch: battery_channel {
-        // compatible = "zmk,battery-nrf-vddh-channel";
-        // vddh-channel = <7>;
+    //     compatible = "zmk,battery-nrf-vddh-channel";
+    //     io-channels = <&adc 6>;
     // };
     
     physical_layout0: physical_layout_0 { // First physical layout, use different naming for other layouts
@@ -118,6 +135,52 @@
         display-name = "Default Layout";
         kscan = <&kscan>; // Label of the kscan node, optional if all layouts use the same
         transform = <&default_transform>; // Label of the matrix transform for this layout
+        keys  //                     w   h    x    y     rot    rx    ry
+            = <&key_physical_attrs 100 100    0  121       0     0     0>
+            , <&key_physical_attrs 100 100  100   68       0     0     0>
+            , <&key_physical_attrs 100 100  200   26       0     0     0>
+            , <&key_physical_attrs 100 100  301    0       0     0     0>
+            , <&key_physical_attrs 100 100  401   32       0     0     0>
+            , <&key_physical_attrs 100 100  501   58       0     0     0>
+            , <&key_physical_attrs 100 100 1092   58       0     0     0>
+            , <&key_physical_attrs 100 100 1192   32       0     0     0>
+            , <&key_physical_attrs 100 100 1292    0       0     0     0>
+            , <&key_physical_attrs 100 100 1392   26       0     0     0>
+            , <&key_physical_attrs 100 100 1493   68       0     0     0>
+            , <&key_physical_attrs 100 100 1593  121       0     0     0>
+            , <&key_physical_attrs 100 100    0  221       0     0     0>
+            , <&key_physical_attrs 100 100  100  169       0     0     0>
+            , <&key_physical_attrs 100 100  200  127       0     0     0>
+            , <&key_physical_attrs 100 100  301  100       0     0     0>
+            , <&key_physical_attrs 100 100  401  132       0     0     0>
+            , <&key_physical_attrs 100 100  501  158       0     0     0>
+            , <&key_physical_attrs 100 100 1092  158       0     0     0>
+            , <&key_physical_attrs 100 100 1192  132       0     0     0>
+            , <&key_physical_attrs 100 100 1292  100       0     0     0>
+            , <&key_physical_attrs 100 100 1392  127       0     0     0>
+            , <&key_physical_attrs 100 100 1493  169       0     0     0>
+            , <&key_physical_attrs 100 100 1593  221       0     0     0>
+            , <&key_physical_attrs 100 100  100  269       0     0     0>
+            , <&key_physical_attrs 100 100  200  227       0     0     0>
+            , <&key_physical_attrs 100 100  301  200       0     0     0>
+            , <&key_physical_attrs 100 100  401  232       0     0     0>
+            , <&key_physical_attrs 100 100  501  258       0     0     0>
+            , <&key_physical_attrs 100 100 1092  258       0     0     0>
+            , <&key_physical_attrs 100 100 1192  232       0     0     0>
+            , <&key_physical_attrs 100 100 1292  200       0     0     0>
+            , <&key_physical_attrs 100 100 1392  227       0     0     0>
+            , <&key_physical_attrs 100 100 1493  269       0     0     0>
+            , <&key_physical_attrs  50 100  620  280       0     0     0>
+            , <&key_physical_attrs  50 100  670  280       0     0     0>
+            , <&key_physical_attrs 100 100  375  348       0     0     0>
+            , <&key_physical_attrs 100 100  506  385    3000   556   435>
+            , <&key_physical_attrs 100 100  593  435    3000   643   485>
+            , <&key_physical_attrs 100 100 1000  435 (-3000)  1050   485>
+            , <&key_physical_attrs 100 100 1087  385 (-3000)  1137   435>
+            , <&key_physical_attrs 100 100 1218  348       0     0     0>
+            , <&key_physical_attrs  50 100  970  280       0     0     0>
+            , <&key_physical_attrs  50 100 1020  280       0     0     0>
+            ;
     };
 
 
@@ -193,7 +256,7 @@
     };
     kscan_selector: kscan-selector {
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
-        wakeup-source;
+        // wakeup-source;
     };
     socd_d: he-socd1{
         compatible = "he,input-processor-socd";
@@ -250,6 +313,10 @@
         status = "disabled";
         device = <&kscan_adc>;
         input-processors = <&raw_sp>;
+        layer8 {
+            layers = <8>;
+            input-processors = <&he_keymap 8>;
+        };
         layer7 {
             layers = <7>;
             input-processors = <&he_keymap 7>;
@@ -287,6 +354,10 @@
         compatible = "he,input-listener";
         status = "disabled";
         device = <&input_split>;
+        layer8 {
+            layers = <8>;
+            input-processors = <&he_keymap 8>;
+        };
         layer7 {
             layers = <7>;
             input-processors = <&he_keymap 7>;
