@@ -212,6 +212,7 @@
             ;
 
     };
+
     kscan: kscan0 {
         compatible = "zmk,kscan-composite";
         wakeup-source;
@@ -234,8 +235,12 @@
         };
     };
 
+    pulse_set_forwarder: pulse-set-forwarder {
+        compatible = "he,pulse-set-forwarder";
+    };
+
     kscan_adc: kscan-adc {
-        compatible = "he,kscan-he-direct-pulsed";
+        compatible = "he,kscan-direct-pulsed";
         resolution = <12>;
         pulse-read;
         // calibrate;
@@ -243,6 +248,7 @@
         wait-period-idle= <5>;
         wait-period-press= <1>;
         kscan-forwarder = <&kscan_forwarder>;
+        pulse-set-forwarder= <&pulse_set_forwarder>;
         kscan_adc_top: top {
             enable-gpios= <&nano_33_ble_gpio_a 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;
             // switch-pressed-is-higher;
@@ -258,6 +264,7 @@
         compatible = "zmk,kscan-gpio-direct"; //TODO implement custom driver with pull_up toggling
         // wakeup-source;
     };
+
     socd_d: he-socd1{
         compatible = "he,input-processor-socd";
         #input-processor-cells = <1>;
@@ -267,15 +274,16 @@
         actuation-point = <2800>;
         type= "priority_deeper";
     };
+
     ps: he_set_p{ //name needs to be <= 8 chars
-        compatible = "he,behavior-set-pulse";
+        compatible = "he,behavior-pulse-set";
         #binding-cells = <1>;
-        kscan-forwarder = <&kscan_forwarder>;
+        pulse-set-forwarder = <&pulse_set_forwarder>;
     };
 
     he_transform: he_transform {// mapping of he sensors before going to kscan-composite but with he,input-processor-matrix-offset applied
         compatible = "zmk,matrix-transform";
-        status= "disabled";
+        // status= "disabled";
         columns = <8>;
         rows = <2>;
         // |  HE1  |  HE2  |  HE3  |  |  HE3  |  HE2  |  HE1  |
@@ -291,12 +299,6 @@
         status= "disabled";
         #input-processor-cells = <1>;
         transform = <&he_transform>;
-        // layer0 {
-        //     input-processors = <
-        //         &gp_fw GP_L_TR     &gp_fw GP_L_UP     &rt_pass 1        &socd_l 0           &gp_fw GP_R_UP     &gp_fw GP_R_TR
-        //         &gp_fw GP_L_LEFT   &gp_fw GP_L_DOWN   &gp_fw GP_L_RIGHT &gp_fw GP_R_LEFT    &gp_fw GP_R_DOWN   &gp_fw GP_R_RIGHT
-        //     >;
-        // };
     };
     
     split_inputs: split_inputs {
